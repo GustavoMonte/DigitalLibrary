@@ -2,6 +2,7 @@
 API do projeto LivrariaDigital - Compra de livros 
 ## Tarefas
 
+- [] CRUD LIVROS
 - [] CRUD USUÁRIO
 - [] CRUD CARRINHO
 - [] CRUD MINHA BIBLIOTECA
@@ -12,17 +13,17 @@ API do projeto LivrariaDigital - Compra de livros
 ## Documentação da API
 
 ### Endpoints
-- [Listar os Livros Favoritos](#listar-todos-os-favoritos)
-- [Detalhes do Livro Favorito](#detalhes-do-favorito)
-- [Adicionar Livro Favoritos](#adicionar-favorito)
-- [Remover Livro Favoritos](#remover-favorito)
+- [Listar os Livros ](#listar-todos-os-livro)
+- [Detalhes do Livro ](#detalhes-do-livro)
+- [Cadastrar Livro ](#cadastrar-livro)
+- [Remover Livro ](#remover-livro)
 
 
 ### Listar os Livros Favoritos
 
-`GET` /favoritos
+`GET` /livros
 
-Retorna um array com todos os seus livros favoritos.
+Retorna um array com todos os seus livros.
 
 #### Exemplo de Resposta
 
@@ -45,9 +46,9 @@ Retorna um array com todos os seus livros favoritos.
 
 ### Detalhes dos Livros Favoritos
 
-`GET` /`{id}`
+`GET` /livros/`{id}`
 
-Retorna detalhes dos livros favoritos.
+Retorna detalhes dos livros.
 
 #### Exemplo de Resposta
 
@@ -66,18 +67,63 @@ Retorna detalhes dos livros favoritos.
 #### Códigos de Status
 |código | descrição |
 |-------|-----------|
-| 200 | Os dados do livro favorito foram retornados com sucesso
+| 200 | Os dados do livro foram retornados com sucesso
 | 401 | Acesso Inválido, Você deve se autenticar|
 | 404 | Não existe Livro com esse id
+
+---
+
+### Cadastrar Livros
+
+`POST` /livros
+
+Adiciona um novo livros para a página de livros
+
+#### Corpo da Requisição
+
+|campo|tipo|obrigatório|descrição|
+|-----|----|:-----------:|---------|
+|nome|string|✅|Nome do livro.
+|descricao|string|✅|Descrição do livro.
+|preco|double|❌|Preço do livro.
+
+```js
+{
+    "nome": "Nada Pode Me Ferir",
+    "descricao": "A história de superação do único homem a completar o treinamento das forças de elite e se tornar Navy SEAL, Army Ranger e TACP.",
+    "preco": 20
+}
+```
+
+#### Exemplo de Resposta
+
+```js
+{
+    "id": 1,
+    "nome": "Nada Pode Me Ferir",
+    "descricao": "A história de superação do único homem a completar o treinamento das forças de elite e se tornar Navy SEAL, Army Ranger e TACP.",
+    "preco": 20
+}
+```
+
+#### Códigos de Status
+
+|código|descrição|
+
+|------|---------|
+|201|Mouse cadastrado com sucesso.
+|400|Dados enviados são inválidos. Verifique o corpo da requisição.
+|401|Acesso negado. Você deve se autenticar.
+
 ---
 
 
 
-### Remover livro do favorito
+### Remover livro 
 
-`DELETE` /favoritos/`{id}`
+`DELETE` /livros/`{id}`
 
-Deleta  no `id` informado
+Deleta livros no `id` informado
 
 #### Códigos de Status
 
