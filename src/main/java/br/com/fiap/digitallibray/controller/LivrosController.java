@@ -23,9 +23,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.web.PageableDefault;
 import br.com.fiap.digitallibray.model.Livros;
 import br.com.fiap.digitallibray.repository.LivrosRepository;
 import lombok.extern.slf4j.Slf4j;
+
+
+
 
 @RestController
 @RequestMapping("livros")
@@ -37,9 +44,16 @@ public class LivrosController {
     @Autowired
     LivrosRepository livrosRepository;
 
-    @GetMapping
-    public List<Livros> index(){
-        return livrosRepository.findAll();
+   @GetMapping
+    public List<Livros> index(@PageableDefault(size = 10) Pageable pageable) {
+    return livrosRepository.findAll(pageable).getContent();
+}
+
+    @GetMapping("maior valor")
+    public Livros getMaior(
+        @PageableDefault(sort = "valor", direction = Direction.DESC , size = 1) Pageable pageable
+    ){
+        return livrosRepository.findAll(pageable).getContent().get(0);
     }
 
     @GetMapping("/{id}")
